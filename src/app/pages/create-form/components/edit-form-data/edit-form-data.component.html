@@ -1,0 +1,82 @@
+<div class="mx-auto max-w-200 p-4">
+  <h3 class="text-lg pb-2 font-medium">Edit Form fields</h3>
+  <form [formGroup]="editFieldsData">
+    <mat-form-field class="w-full pb-2">
+      <mat-label>Form Control Name</mat-label>
+      <input matInput formControlName="formControlName" />
+      <mat-hint>Key used in the API</mat-hint>
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="editFieldsData.get('formControlName')?.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="w-full pb-2">
+      <mat-label>Placeholder Text</mat-label>
+      <input matInput formControlName="placeholder" />
+      <mat-hint>Placeholder shown on start typing</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="w-full pb-2">
+      <mat-label>Label</mat-label>
+      <input matInput formControlName="label" />
+      <mat-hint>Label text for input field</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="w-full pb-2">
+      <mat-label>Hint</mat-label>
+      <input matInput formControlName="hint" />
+      <mat-hint>Hint to be shown in form</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="w-full pb-2">
+      <mat-label>Default Value</mat-label>
+      <input matInput formControlName="defaultValue" />
+      <mat-hint>Default value of input field</mat-hint>
+    </mat-form-field>
+
+    <div>
+      <mat-checkbox formControlName="showClear" value="true"
+        >Show Clear Icon</mat-checkbox
+      >
+    </div>
+
+    <div>
+      <mat-checkbox formControlName="required" value="true"
+        >Is Field Required</mat-checkbox
+      >
+    </div>
+
+    <h3 class="text-lg py-2 font-medium">Options</h3>
+    <div formArrayName="options">
+      @for (option of options.controls; track $index; let i = $index) {
+        <div class="flex gap-4 pb-2" [formGroupName]="i">
+          <mat-form-field class="w-full pb-2">
+            <mat-label>Dropdown Label Text</mat-label>
+            <input matInput formControlName="label" />
+            @if (i == 0) {
+              <mat-hint>Dropdown Option Text</mat-hint>
+            }
+          </mat-form-field>
+          <mat-form-field class="w-full pb-2">
+            <mat-label>Value</mat-label>
+            <input matInput formControlName="value"/>
+            @if (i == 0) {
+              <mat-hint>Dropdown Option Value</mat-hint>
+            }
+          </mat-form-field>
+        </div>
+      }
+    </div>
+
+
+  </form>
+  <div class="text-center flex gap-4 justify-center">
+    <button mat-stroked-button (click)="close()">Close</button>
+    <button mat-flat-button (click)="save()">Save</button>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<mat-form-field class="w-full">
+  <mat-label>{{inputData.label}}</mat-label>
+  <input matInput [placeholder]="inputData.placeholder" [formControl]="control">
+  <mat-hint>{{inputData.hint}}</mat-hint>
+  @if (inputData.showClear) {
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="control.setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>

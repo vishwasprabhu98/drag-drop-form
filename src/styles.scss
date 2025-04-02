@@ -1,4 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  // input background
+  --mdc-filled-text-field-container-color: transparent;
+  --mdc-filled-text-field-input-text-color: black;
+  --mdc-filled-text-field-input-placeholder-color: black;
+  // mat-datepicker
+  --mat-form-field-container-vertical-padding: 4px;
+  --mdc-filled-text-field-active-indicator-color: transparent;
+  --mat-sys-corner-extra-large: 4px;
+  --mat-option-label-text-font: "Work Sans", sans-serif;
+  --mdc-filled-text-field-focus-label-text-color: oklch(0.5 0.134 242.749);
+  // paginator
+  --mat-paginator-container-background-color: oklch(0.985 0 0);
+  --mat-paginator-container-text-size: 0.875rem;
+  --mat-paginator-select-trigger-text-size: 0.875rem;
+  // expansion panel
+  --mat-expansion-container-background-color: oklch(0.985 0 0);
+  // buttons
+  --mdc-filled-button-container-color: oklch(0.5 0.134 242.749);
+  --mdc-filled-button-container-shape: 4px;
+  --mdc-outlined-button-container-shape: 4px;
+  --mdc-outlined-button-outline-color: oklch(0.5 0.134 242.749);
+  --mdc-outlined-button-outline-width: 2px;
+  // tooltip
+  --mdc-plain-tooltip-supporting-text-font: "Work Sans", sans-serif;
+  // snackbar
+  --mdc-snackbar-supporting-text-font: "Work Sans", sans-serif;
+}
+.mat-mdc-form-field-icon-suffix {
+  margin-right: 0.25rem;
+}
+.mdc-line-ripple {
+  display: none;
+}
+.mdc-text-field--filled {
+  border: 1px solid oklch(0.5 0.134 242.749);
+  border-radius: 0.25rem !important;
+}
+.w-full {
+  width: 100%;
+}

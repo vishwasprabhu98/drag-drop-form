@@ -1,0 +1,9 @@
+<label [attr.id]="inputData.controlName">{{inputData.placeholder}}</label>
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+  [formControl]="control">
+  @for (labelValue of inputData.options; track labelValue.value) {
+    <mat-radio-button class="example-radio-button" [value]="labelValue.value">{{labelValue.label}}</mat-radio-button>
+  }
+</mat-radio-group>
