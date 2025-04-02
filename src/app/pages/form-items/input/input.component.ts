@@ -3,6 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import { FormField } from '../../../core/models/input-field';
 
 @Component({
   selector: 'app-input',
@@ -11,7 +12,7 @@ import {MatInputModule} from '@angular/material/input';
   styleUrl: './input.component.scss'
 })
 export class InputComponent {
-  @Input() inputData: any
+  @Input() inputData!: FormField
   @Input() control: any;
   
 }

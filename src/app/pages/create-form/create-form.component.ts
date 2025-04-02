@@ -22,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { generateRandomString } from '../../core/utils/random-string';
 import { EditFormDataComponent } from './components/edit-form-data/edit-form-data.component';
 import { INPUT_OBJECTS } from '../../core/constants/form-fields';
+import { FormField } from '../../core/models/input-field';
 
 @Component({
   selector: 'app-create-form',
@@ -41,11 +42,10 @@ import { INPUT_OBJECTS } from '../../core/constants/form-fields';
 })
 export class CreateFormComponent {
   items = INPUT_OBJECTS
-
   inputTypes = INPUT_TYPES
   dialog = inject(MatDialog)
 
-  basket: any = [];
+  basket: FormField[] = [];
   basketForm = new FormGroup({});
 
   drop(event: CdkDragDrop<any>) {
@@ -90,7 +90,7 @@ export class CreateFormComponent {
       }
     )
     dialog.afterClosed().subscribe(
-      data => {
+      (data?: FormField) => {
         if (data) {
           Object.assign(item, data)
         }

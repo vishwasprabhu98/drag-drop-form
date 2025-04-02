@@ -1,5 +1,5 @@
-<div class="mx-auto max-w-200 p-4">
-  <h3 class="text-lg pb-2 font-medium">Edit Form fields</h3>
+<h4 mat-dialog-title>Edit Form fields</h4>
+<mat-dialog-content class="mat-typography">
   <form [formGroup]="editFieldsData">
     <mat-form-field class="w-full pb-2">
       <mat-label>Form Control Name</mat-label>
@@ -28,55 +28,72 @@
     </mat-form-field>
 
     <mat-form-field class="w-full pb-2">
-      <mat-label>Hint</mat-label>
-      <input matInput formControlName="hint" />
-      <mat-hint>Hint to be shown in form</mat-hint>
-    </mat-form-field>
-
-    <mat-form-field class="w-full pb-2">
       <mat-label>Default Value</mat-label>
       <input matInput formControlName="defaultValue" />
       <mat-hint>Default value of input field</mat-hint>
     </mat-form-field>
 
-    <div>
-      <mat-checkbox formControlName="showClear" value="true"
-        >Show Clear Icon</mat-checkbox
-      >
-    </div>
+    @if (data.item.type !== inputTypes.CHECKBOX && data.item.type !== inputTypes.RADIO) {
+      <mat-form-field class="w-full pb-2">
+        <mat-label>Hint</mat-label>
+        <input matInput formControlName="hint" />
+        <mat-hint>Hint to be shown in form</mat-hint>
+      </mat-form-field>
 
-    <div>
-      <mat-checkbox formControlName="required" value="true"
-        >Is Field Required</mat-checkbox
-      >
-    </div>
+      <div>
+        <mat-checkbox formControlName="showClear" value="true"
+          >Show Clear Icon</mat-checkbox
+        >
+      </div>
+    
+      <div>
+        <mat-checkbox formControlName="required" value="true"
+          >Is Field Required</mat-checkbox
+        >
+      </div>
+    }
 
-    <h3 class="text-lg py-2 font-medium">Options</h3>
-    <div formArrayName="options">
-      @for (option of options.controls; track $index; let i = $index) {
-        <div class="flex gap-4 pb-2" [formGroupName]="i">
-          <mat-form-field class="w-full pb-2">
-            <mat-label>Dropdown Label Text</mat-label>
-            <input matInput formControlName="label" />
-            @if (i == 0) {
-              <mat-hint>Dropdown Option Text</mat-hint>
-            }
-          </mat-form-field>
-          <mat-form-field class="w-full pb-2">
-            <mat-label>Value</mat-label>
-            <input matInput formControlName="value"/>
-            @if (i == 0) {
-              <mat-hint>Dropdown Option Value</mat-hint>
-            }
-          </mat-form-field>
-        </div>
-      }
-    </div>
-
-
+    @if (data.item.type === inputTypes.DROPDOWN || data.item.type === inputTypes.RADIO) {
+      <h3 class="text-lg py-2 font-medium">Options</h3>
+      <div formArrayName="options">
+        @for (option of options.controls; track $index; let i = $index; let last = $last) {
+          <div class="flex gap-4 items-center pb-2" [formGroupName]="i">
+            <mat-form-field class="w-full pb-2">
+              <mat-label>Dropdown Label Text</mat-label>
+              <input matInput formControlName="label" />
+              @if (i == 0) {
+                <mat-hint>Dropdown Option Text</mat-hint>
+              }
+            </mat-form-field>
+            <mat-form-field class="w-full pb-2">
+              <mat-label>Value</mat-label>
+              <input matInput formControlName="value"/>
+              @if (i == 0) {
+                <mat-hint>Dropdown Option Value</mat-hint>
+              }
+            </mat-form-field>
+            <div class="flex item-center flex-col">
+              @if (last) {
+                <button mat-icon-button (click)="addOption()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              }
+              @if (!last || (last && i !== 0)) {
+                <button mat-icon-button (click)="removeOption(i)">
+                  <mat-icon>remove</mat-icon>
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
   </form>
+</mat-dialog-content>
+<mat-dialog-actions>
   <div class="text-center flex gap-4 justify-center">
     <button mat-stroked-button (click)="close()">Close</button>
-    <button mat-flat-button (click)="save()">Save</button>
+    <button mat-flat-button [disabled]="!editFieldsData.valid" (click)="save()">Save</button>
   </div>
-</div>
+</mat-dialog-actions>
+

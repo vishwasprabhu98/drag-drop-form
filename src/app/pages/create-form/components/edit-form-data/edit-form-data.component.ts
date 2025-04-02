@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { INPUT_TYPES } from '../../../../core/constants/input-types';
 
 @Component({
   selector: 'app-edit-form-data',
@@ -27,6 +28,7 @@ export class EditFormDataComponent {
 
   data = inject(MAT_DIALOG_DATA)
   dialogRef = inject(MatDialogRef<EditFormDataComponent>)
+  inputTypes = INPUT_TYPES
 
   editFieldsData!: FormGroup
 
@@ -92,6 +94,14 @@ export class EditFormDataComponent {
 
   get options(): FormArray {
     return this.editFieldsData.get('options') as FormArray;
+  }
+
+  addOption() {
+    this.options.push(this.getOptionsFormGroup({label: '', value: ''}));
+  }
+
+  removeOption(index: number) {
+    this.options.removeAt(index);
   }
 
   save() {

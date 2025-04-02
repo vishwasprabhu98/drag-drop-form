@@ -1,6 +1,7 @@
+import { FormField } from '../models/input-field';
 import { INPUT_TYPES } from './input-types';
 
-export const INPUT_OBJECTS = [
+export const INPUT_OBJECTS: FormField[] = [
   {
     controlName: '',
     formControlName: '',
@@ -9,6 +10,7 @@ export const INPUT_OBJECTS = [
     label: 'Text Input',
     hint: 'Hint for text',
     showClear: false,
+    checkboxValue: null,
     validation: {
       minLength: 'Min Length error',
       maxLength: 'Max length error',
@@ -37,6 +39,7 @@ export const INPUT_OBJECTS = [
     label: 'Choose here',
     hint: '',
     showClear: false,
+    checkboxValue: null,
     validation: [],
     options: [
       { label: 'Label 1', value: 1 },
@@ -54,6 +57,7 @@ export const INPUT_OBJECTS = [
     label: 'Select Item from radio',
     hint: 'radio selection',
     showClear: false,
+    checkboxValue: null,
     validation: [],
     options: [
       { label: 'Label 1', value: 1 },
@@ -71,6 +75,7 @@ export const INPUT_OBJECTS = [
     label: 'Label',
     hint: '',
     showClear: false,
+    checkboxValue: null,
     validation: [],
     options: [],
     required: true,

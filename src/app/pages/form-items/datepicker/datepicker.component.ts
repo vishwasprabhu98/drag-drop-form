@@ -6,6 +6,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { FormField } from '../../../core/models/input-field';
 
 @Component({
   selector: 'app-datepicker',
@@ -15,6 +16,6 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './datepicker.component.scss'
 })
 export class DatepickerComponent {
-  @Input() inputData: any
+  @Input() inputData!: FormField
   @Input() control: any;
 }

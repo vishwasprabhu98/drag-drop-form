@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
+import { FormField } from '../../../core/models/input-field';
 @Component({
   selector: 'app-radio',
   imports: [MatRadioModule, ReactiveFormsModule],
@@ -8,6 +9,6 @@ import {MatRadioModule} from '@angular/material/radio';
   styleUrl: './radio.component.scss'
 })
 export class RadioComponent {
-  @Input() inputData: any
+  @Input() inputData!: FormField
   @Input() control: any;
 }
