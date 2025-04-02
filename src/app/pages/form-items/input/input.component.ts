@@ -15,4 +15,7 @@ export class InputComponent {
   @Input() inputData!: FormField
   @Input() control: any;
   
+  getErrors() {
+    console.log('%csrc/app/pages/form-items/input/input.component.ts:19 control.errors', 'color: #007acc;', this.control.errors);
+  }
 }

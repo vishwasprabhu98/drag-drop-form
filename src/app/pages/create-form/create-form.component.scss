@@ -1,7 +1,6 @@
 .example-container {
-  width: 400px;
-  max-width: 100%;
-  margin: 0 25px 25px 0;
+  // width: 400px;
+  margin: 0 0 25px 0;
   display: inline-block;
   vertical-align: top;
 }
@@ -26,7 +25,6 @@
   box-sizing: border-box;
   cursor: move;
   background: white;
-  font-size: 14px;
   gap: 16px;
 }
 .flex-1 {

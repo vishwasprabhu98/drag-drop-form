@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { INPUT_TYPES } from '../../../../core/constants/input-types';
+import { ValidationOption } from '../../../../core/models/input-field';
 
 @Component({
   selector: 'app-edit-form-data',
@@ -32,40 +33,17 @@ export class EditFormDataComponent {
 
   editFieldsData!: FormGroup
 
-  // {
-  //     controlName: '',
-  //     formControlName: '',
-  //     type: INPUT_TYPES.INPUT,
-  //     placeholder: 'Enter Text Input',
-  //     label: 'Text Input',
-  //     hint: 'Hint for text',
-  //     showClear: false,
-  //     validation: {
-  //       minLength: 'Min Length error',
-  //       maxLength: 'Max length error',
-  //       required: 'Required',
-  //       pattern: 'Pattern not matching',
-  //       min: 'Min number',
-  //       max: 'Max number',
-  //     },
-  //     options: [],
-  //     defaultValue: null,
-  //     required: true,
+
   //     validationsAvailable: [
-  //       { name: 'minLength', value: null, addValidation: false },
-  //       { name: 'maxLength', value: null, addValidation: false },
-  //       { name: 'required', value: null, addValidation: true },
-  //       { name: 'pattern', value: null, addValidation: false },
-  //       { name: 'min', value: null, addValidation: false },
-  //       { name: 'max', value: null, addValidation: false },
+  //       { name: 'minLength', value: null, addValidation: false, errorMessage: '' },
   //     ],
-  //   },
+
 
   constructor(private fb: FormBuilder) {
     
     let formObject: Record<string, FormControl|FormArray> = {}
 
-    formObject['formControlName'] = new FormControl(this.data.item.formControlName, Validators.required)
+    formObject['formControlName'] = new FormControl(this.data.item.formControlName,[Validators.required, Validators.pattern(/^[a-zA-Z]*$/)])
     formObject['placeholder'] = new FormControl(this.data.item.placeholder)
     formObject['label'] = new FormControl(this.data.item.label, Validators.required)
     formObject['hint'] = new FormControl(this.data.item.hint)
@@ -75,6 +53,11 @@ export class EditFormDataComponent {
     formObject['options'] = new FormArray<FormControl>([
       ...this.data.item.options.map(
         (option: {label: string, value: string|number|null}) => this.getOptionsFormGroup(option)
+      )
+    ])
+    formObject['validationsAvailable'] = new FormArray<FormControl>([
+      ...this.data.item.validationsAvailable.map(
+        (validation: ValidationOption) => this.getValidationFormGroup(validation)
       )
     ])
 
@@ -88,12 +71,25 @@ export class EditFormDataComponent {
     })
   }
 
+  getValidationFormGroup(validation: ValidationOption) {
+    return new FormGroup({
+      name: new FormControl(validation.name),
+      value: new FormControl(validation.value), 
+      addValidation: new FormControl(validation.addValidation),
+      errorMessage: new FormControl(validation.errorMessage), 
+    })
+  }
+
   close() {
     this.dialogRef.close()
   }
 
   get options(): FormArray {
     return this.editFieldsData.get('options') as FormArray;
+  }
+
+  get validations(): FormArray {
+    return this.editFieldsData.get('validationsAvailable') as FormArray;
   }
 
   addOption() {

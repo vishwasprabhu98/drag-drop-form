@@ -8,7 +8,9 @@ import { InputComponent } from '../form-items/input/input.component';
 import {
   FormControl,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { DropdownComponent } from '../form-items/dropdown/dropdown.component';
@@ -23,6 +25,8 @@ import { generateRandomString } from '../../core/utils/random-string';
 import { EditFormDataComponent } from './components/edit-form-data/edit-form-data.component';
 import { INPUT_OBJECTS } from '../../core/constants/form-fields';
 import { FormField } from '../../core/models/input-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-form',
@@ -35,7 +39,10 @@ import { FormField } from '../../core/models/input-field';
     CheckboxComponent,
     DatepickerComponent,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   templateUrl: './create-form.component.html',
   styleUrl: './create-form.component.scss',
@@ -47,6 +54,7 @@ export class CreateFormComponent {
 
   basket: FormField[] = [];
   basketForm = new FormGroup({});
+  formName = ''
 
   drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
@@ -64,7 +72,7 @@ export class CreateFormComponent {
       formInstance.formControlName = randomString
       this.basketForm.addControl(
         formInstance.controlName,
-        new FormControl(formInstance.defaultValue, [Validators.required])
+        new FormControl(formInstance.defaultValue, [...this.getValidationArray(formInstance)])
       );
 
       if (
@@ -76,11 +84,32 @@ export class CreateFormComponent {
     }
   }
 
+  getValidationArray(formInstance: FormField): ValidatorFn[] {
+    let validators: ValidatorFn[] = []
+    if (formInstance.required) {
+      validators.push(Validators.required)
+    }
+    formInstance.validationsAvailable.forEach(validator => {
+      if (validator.addValidation) {
+        switch(validator.name) {
+          case 'minLength': validators.push(Validators.minLength(validator.value)); break;
+          case 'maxLength': validators.push(Validators.maxLength(validator.value)); break;
+          case 'pattern': validators.push(Validators.pattern(validator.value)); break;
+          case 'min': validators.push(Validators.min(validator.value)); break;
+          case 'max': validators.push(Validators.max(validator.value)); break;
+        }
+      }
+    })
+    console.log(validators);
+    
+    return validators
+  }
+
   noReturnPredicate() {
     return false;
   }
 
-  edit(item: any) {
+  edit(item: FormField) {
     const dialog = this.dialog.open(
       EditFormDataComponent,
       {
@@ -93,12 +122,17 @@ export class CreateFormComponent {
       (data?: FormField) => {
         if (data) {
           Object.assign(item, data)
+          this.basketForm.get(item.controlName)?.clearValidators()
+          this.basketForm.get(item.controlName)?.addValidators([...this.getValidationArray(item)])
+          this.basketForm.get(item.controlName)?.updateValueAndValidity();
         }
       }
     )
   }
 
   submit() {
+    console.log(this.basketForm);
+    
     console.log(this.basketForm.value);
   }
 }

@@ -1,7 +1,7 @@
 
-<div cdkDropListGroup>
-  <div class="example-container c1">
-    <h2>Available items</h2>
+<div class="flex flex-wrap gap-4" cdkDropListGroup>
+  <div class="example-container min-w-50 max-w-80 w-full">
+    <h2 class="font-medium text-xl pb-4">Available items</h2>
 
     <div
       cdkDropList
@@ -11,13 +11,17 @@
       [cdkDropListEnterPredicate]="noReturnPredicate"
       (cdkDropListDropped)="drop($event)">
       @for (item of items; track item) {
-        <div class="example-box" cdkDrag>{{item.type}}</div>
+        <div class="example-box capitalize text-md font-medium" cdkDrag>{{item.type}}</div>
       }
     </div>
   </div>
 
-  <div class="example-container w-full">
-    <h2>Shopping basket</h2>
+  <div class="example-container min-w-80 flex-1">
+    <h2 class="font-medium text-xl pb-4">Build your form</h2>
+    <mat-form-field class="w-full">
+      <mat-label>Form Name</mat-label>
+      <input matInput placeholder="Enter Name of the form" [(ngModel)]="formName">
+    </mat-form-field>
 
     <form [formGroup]="basketForm">
       <div
@@ -26,7 +30,7 @@
         class="example-list"
         (cdkDropListDropped)="drop($event)">
         @for (item of basket; track item.controlName) {
-          <div class="example-box" cdkDrag >
+          <div class="example-box" cdkDrag>
             <div class="flex-1">
               @if (item.type === inputTypes.INPUT) {
                 <app-input [inputData]="item" [control]="basketForm.get(item.controlName)"></app-input>
@@ -51,7 +55,8 @@
         }
       </div>
     </form>
+    <div class="text-center pt-4">
+      <button mat-flat-button (click)="submit()">submit</button>
+    </div>
   </div>
 </div>
-
-<button (click)="submit()">submit</button>

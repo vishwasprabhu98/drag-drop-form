@@ -58,14 +58,14 @@
       <div formArrayName="options">
         @for (option of options.controls; track $index; let i = $index; let last = $last) {
           <div class="flex gap-4 items-center pb-2" [formGroupName]="i">
-            <mat-form-field class="w-full pb-2">
+            <mat-form-field class="w-full">
               <mat-label>Dropdown Label Text</mat-label>
               <input matInput formControlName="label" />
               @if (i == 0) {
                 <mat-hint>Dropdown Option Text</mat-hint>
               }
             </mat-form-field>
-            <mat-form-field class="w-full pb-2">
+            <mat-form-field class="w-full">
               <mat-label>Value</mat-label>
               <input matInput formControlName="value"/>
               @if (i == 0) {
@@ -84,6 +84,27 @@
                 </button>
               }
             </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (data.item.type === inputTypes.INPUT) {
+      <h3 class="text-lg py-2 font-medium">Input Validations</h3>
+      <div formArrayName="validationsAvailable" class="hide-hints">
+        @for (validation of validations.controls; track $index; let i = $index; let last = $last) {
+          <div class="flex gap-4 items-center pb-2" [formGroupName]="i">
+            <mat-checkbox class="min-w-30" formControlName="addValidation" value="true"
+              >{{ validation.get('name')?.value }}</mat-checkbox
+            >
+            <mat-form-field class="w-full">
+              <mat-label>Validation Value</mat-label>
+              <input matInput formControlName="value" />
+            </mat-form-field>
+            <mat-form-field class="w-full">
+              <mat-label>Error Message</mat-label>
+              <input matInput formControlName="errorMessage" />
+            </mat-form-field>
           </div>
         }
       </div>
