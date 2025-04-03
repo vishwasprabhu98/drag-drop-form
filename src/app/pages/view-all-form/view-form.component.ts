@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { TitleCasePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { CommonService } from '../../core/services/common-service/common.service';
+import { USER_TYPE } from '../../core/enums/user-type';
 
 @Component({
   selector: 'app-view-form',
@@ -22,9 +23,12 @@ export class ViewFormComponent implements OnInit {
   router = inject(Router)
 
   allForms: SavedForm[] = []
+  userType!: string | null
+  userTypes = USER_TYPE
 
   ngOnInit() {
     this.allForms = this.formService.getAllSavedForms()
+    this.userType = localStorage.getItem('loginType') || null
   }
 
   fillForm(form: SavedForm) {
