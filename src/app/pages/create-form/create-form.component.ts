@@ -55,6 +55,7 @@ export class CreateFormComponent {
   basket: FormField[] = [];
   basketForm = new FormGroup({});
   formName = ''
+  onChangesToggle = false
 
   drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
@@ -94,14 +95,12 @@ export class CreateFormComponent {
         switch(validator.name) {
           case 'minLength': validators.push(Validators.minLength(validator.value)); break;
           case 'maxLength': validators.push(Validators.maxLength(validator.value)); break;
-          case 'pattern': validators.push(Validators.pattern(validator.value)); break;
+          case 'pattern': validators.push(Validators.pattern(`${validator.value}`)); break;
           case 'min': validators.push(Validators.min(validator.value)); break;
           case 'max': validators.push(Validators.max(validator.value)); break;
         }
       }
     })
-    console.log(validators);
-    
     return validators
   }
 
@@ -125,14 +124,13 @@ export class CreateFormComponent {
           this.basketForm.get(item.controlName)?.clearValidators()
           this.basketForm.get(item.controlName)?.addValidators([...this.getValidationArray(item)])
           this.basketForm.get(item.controlName)?.updateValueAndValidity();
+          this.onChangesToggle = !this.onChangesToggle
         }
       }
     )
   }
 
   submit() {
-    console.log(this.basketForm);
-    
     console.log(this.basketForm.value);
   }
 }

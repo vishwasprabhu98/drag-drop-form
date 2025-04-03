@@ -18,4 +18,5 @@ import { FormField } from '../../../core/models/input-field';
 export class DatepickerComponent {
   @Input() inputData!: FormField
   @Input() control: any;
+  @Input() onChangesToggle!: boolean
 }

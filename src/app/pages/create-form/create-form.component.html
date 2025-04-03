@@ -33,10 +33,10 @@
           <div class="example-box" cdkDrag>
             <div class="flex-1">
               @if (item.type === inputTypes.INPUT) {
-                <app-input [inputData]="item" [control]="basketForm.get(item.controlName)"></app-input>
+                <app-input [inputData]="item" [control]="basketForm.get(item.controlName)" [onChangesToggle]="onChangesToggle"></app-input>
               }
               @if (item.type === inputTypes.DROPDOWN) {
-                <app-dropdown [inputData]="item" [control]="basketForm.get(item.controlName)"></app-dropdown>
+                <app-dropdown [inputData]="item" [control]="basketForm.get(item.controlName)" [onChangesToggle]="onChangesToggle"></app-dropdown>
               }
               @if (item.type === inputTypes.RADIO) {
                 <app-radio [inputData]="item" [control]="basketForm.get(item.controlName)"></app-radio>
@@ -45,7 +45,7 @@
                 <app-checkbox [inputData]="item" [control]="basketForm.get(item.controlName)"></app-checkbox>
               }
               @if (item.type === inputTypes.DATE_PICKER) {
-                <app-datepicker [inputData]="item" [control]="basketForm.get(item.controlName)"></app-datepicker>
+                <app-datepicker [inputData]="item" [control]="basketForm.get(item.controlName)" [onChangesToggle]="onChangesToggle"></app-datepicker>
               }
             </div>
             <button mat-icon-button type="button" (click)="edit(item)">

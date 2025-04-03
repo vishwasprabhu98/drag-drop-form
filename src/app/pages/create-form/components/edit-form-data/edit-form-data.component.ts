@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { INPUT_TYPES } from '../../../../core/constants/input-types';
 import { ValidationOption } from '../../../../core/models/input-field';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-form-data',
@@ -20,7 +21,8 @@ import { ValidationOption } from '../../../../core/models/input-field';
     MatIconModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatInputModule
+    MatInputModule,
+    CommonModule
   ],
   templateUrl: './edit-form-data.component.html',
   styleUrl: './edit-form-data.component.scss'
@@ -32,12 +34,6 @@ export class EditFormDataComponent {
   inputTypes = INPUT_TYPES
 
   editFieldsData!: FormGroup
-
-
-  //     validationsAvailable: [
-  //       { name: 'minLength', value: null, addValidation: false, errorMessage: '' },
-  //     ],
-
 
   constructor(private fb: FormBuilder) {
     
