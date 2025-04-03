@@ -19,7 +19,7 @@
         <button mat-stroked-button (click)="viewForm(form)">View</button>
         @if (userType === userTypes.ADMIN) {
           <button mat-flat-button (click)="editForm(form)">Edit</button>
-          <button mat-stroked-button (click)="deleteForm(form)">Delete</button>
+          <button mat-stroked-button class="delete" (click)="deleteForm(form)">Delete</button>
         }
       </div>
     </div>

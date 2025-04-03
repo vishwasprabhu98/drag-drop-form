@@ -6,7 +6,7 @@
     <form [formGroup]="formGroup">
       @for (item of formFields; track item.formControlName) {
         <div class="w-full pb-4">
-          @if (item.type === inputTypes.INPUT) {
+          @if (item.type === inputTypes.INPUT || item.type === inputTypes.TEXTAREA) {
             <app-input [inputData]="item" [control]="formGroup.get(item.formControlName)"></app-input>
           }
           @if (item.type === inputTypes.DROPDOWN) {

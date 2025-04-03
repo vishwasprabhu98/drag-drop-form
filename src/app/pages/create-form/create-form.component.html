@@ -37,7 +37,7 @@
         @for (item of basket; track item.controlName) {
           <div class="example-box" cdkDrag>
             <div class="flex-1">
-              @if (item.type === inputTypes.INPUT) {
+              @if (item.type === inputTypes.INPUT || item.type === inputTypes.TEXTAREA) {
                 <app-input [inputData]="item" [control]="basketForm.get(item.controlName)" [onChangesToggle]="onChangesToggle"></app-input>
               }
               @if (item.type === inputTypes.DROPDOWN) {

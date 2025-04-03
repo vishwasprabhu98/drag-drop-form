@@ -58,6 +58,7 @@ export class CreateFormComponent {
     [INPUT_TYPES.DATE_PICKER]: 'calendar_month',
     [INPUT_TYPES.CHECKBOX]: 'check_box',
     [INPUT_TYPES.RADIO]: 'radio_button_checked',
+    [INPUT_TYPES.TEXTAREA]: 'sticky_note_2'
   }
   dialog = inject(MatDialog)
   saveFormService = inject(SaveFormService)

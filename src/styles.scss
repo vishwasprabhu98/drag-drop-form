@@ -35,6 +35,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --mdc-plain-tooltip-supporting-text-font: "Work Sans", sans-serif;
   // snackbar
   --mdc-snackbar-supporting-text-font: "Work Sans", sans-serif;
+  // delete button
+  .delete {
+    --mdc-outlined-button-outline-color: oklch(0.704 0.191 22.216);
+    color: oklch(0.704 0.191 22.216) !important;
+  }
 }
 .hide-hints .mat-mdc-form-field-subscript-wrapper {
   display: none;

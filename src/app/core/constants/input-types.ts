@@ -3,5 +3,6 @@ export const INPUT_TYPES = {
   DROPDOWN: 'dropdown',
   DATE_PICKER: 'datepicker',
   CHECKBOX: 'checkbox',
-  RADIO: 'radio'
+  RADIO: 'radio',
+  TEXTAREA: 'textarea'
 }

@@ -35,7 +35,8 @@ export class LoginComponent {
     }
   }
 
-  onLogin() {
+  onLogin(e: Event) {
+    e.preventDefault()
     const { username, password } = this.formGroup.value
 
     if (username === 'admin' && password === 'admin') {

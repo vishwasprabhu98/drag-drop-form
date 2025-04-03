@@ -1,6 +1,10 @@
 <mat-form-field class="w-full">
   <mat-label>{{inputData.label}}</mat-label>
-  <input matInput [placeholder]="inputData.placeholder" [formControl]="control">
+  @if (inputData.type === inputTypes.INPUT) {
+    <input matInput [placeholder]="inputData.placeholder" [formControl]="control">
+  } @else if (inputData.type === inputTypes.TEXTAREA) {
+    <textarea matInput [placeholder]="inputData.placeholder" [formControl]="control"></textarea>
+  }
   <mat-hint>{{inputData.hint}}</mat-hint>
   @if (inputData.showClear) {
     <button matSuffix mat-icon-button aria-label="Clear" (click)="control.setValue('')">

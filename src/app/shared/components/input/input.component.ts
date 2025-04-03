@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { FormField } from '../../../core/models/input-field';
 import { getErrorMessage } from '../../../core/utils/error-message';
+import { INPUT_TYPES } from '../../../core/constants/input-types';
 
 @Component({
   selector: 'app-input',
@@ -16,6 +17,8 @@ export class InputComponent {
   @Input() inputData!: FormField
   @Input() control: any;
   @Input() onChangesToggle!: boolean
+
+  inputTypes = INPUT_TYPES
 
   errorMessageObject: Record<string, string> = {}
 
