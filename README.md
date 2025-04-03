@@ -1,6 +1,37 @@
-# DragDropForm
+# Form Builder using drag and drop of input fields
+
+This project helps us to generate a dynamic form. Drag and drop the input fields to generate form
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+
+# Deployed Link of application
+
+You can access the deployed application at [drag-drop-form](https://drag-drop-forms.web.app) 🚀
+
+# Design Docs
+
+You can find the design documents in the [attached-docs](https://github.com/vishwasprabhu98/drag-drop-form/tree/main/attached-docs) folder with the respective filenames.
+
+- [Application Document](https://github.com/vishwasprabhu98/drag-drop-form/blob/main/attached-docs/drag-drop-form.pdf)
+
+# Screenshots
+
+#### Screen Recording
+
+[link](https://github.com/vishwasprabhu98/drag-drop-form/blob/main/attached-docs/drag-drop-record.mov)
+![Build Form UI](./attached-docs/drag-drop-record.mov)
+
+#### Build Form UI
+
+![Build Form UI](./attached-docs/build-ui.png)
+
+#### Edit Form fields
+
+![Edit form fields](./attached-docs/edit-fields.png)
+
+#### Filling the form 
+
+![Fill Form](./attached-docs/fill-form.png)
 
 ## Development server
 
@@ -35,25 +66,3 @@ ng build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
