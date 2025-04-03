@@ -24,7 +24,7 @@
         </div>
       }
     </form>
-    <div class="text-center pt-4 flex item-center justify-center gap-4">
+    <div class="text-center pt-4 flex item-center justify-center gap-2">
       <button mat-stroked-button (click)="back()">Back</button>
       @if (this.commonService.viewFormData().editAccess) {
         <button mat-flat-button (click)="submit()" [disabled]="!formGroup.valid">Submit</button>
