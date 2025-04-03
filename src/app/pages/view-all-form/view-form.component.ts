@@ -65,4 +65,8 @@ export class ViewFormComponent implements OnInit {
     this.formService.deleteForm(form.uuid)
     this.ngOnInit()
   }
+
+  logout() {
+    this.router.navigateByUrl('login')
+  }
 }
