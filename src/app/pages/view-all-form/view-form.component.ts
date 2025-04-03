@@ -70,6 +70,11 @@ export class ViewFormComponent implements OnInit {
     this.ngOnInit()
   }
 
+  viewSubmission() {
+    this.router.navigateByUrl('submissions')
+    
+  }
+
   logout() {
     this.router.navigateByUrl('login')
   }

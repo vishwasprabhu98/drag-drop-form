@@ -1,6 +1,6 @@
 <div class="h-full w-full flex items-center justify-center">
   <div class="login rounded-sm p-4 w-full max-w-120">
-    <h2 class="font-medium text-3xl pb-4 text-center">Login</h2>
+    <h2 class="font-medium text-3xl pb-8 text-center">Login</h2>
     <form [formGroup]="formGroup" (ngSubmit)="onLogin($event)">
       <mat-form-field class="w-full ">
         <mat-label>User Name</mat-label>
@@ -14,9 +14,9 @@
       <button class="w-full" mat-flat-button type="submit">Submit</button>
     </form>
 
-    <div class="text-center pt-4 text-neutral-500">
+    <div class="text-center pt-4 text-sm text-neutral-500">
       <p>Disclaimer</p>
-      <p>For Development and Testing purpose only. This data will not be present in Production</p>
+      <p>For Development and Testing purpose only. <br/> This data will not be present in Production</p>
       <p>Admin Cred -> username: admin / password: admin</p>
       <p>User Cred -> username: user / password: user</p>
     </div>

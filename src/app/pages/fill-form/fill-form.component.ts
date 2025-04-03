@@ -78,7 +78,12 @@ export class FillFormComponent {
   }
 
   submit() {
-    console.log(this.formGroup.value)
+    this.formsService.submitForm({
+      formName: this.formName,
+      formData: this.formGroup.getRawValue()
+    })
+    this.formsService.openSnackBar('Form Submitted Successfully')
+    this.back()
   }
 
   back() {

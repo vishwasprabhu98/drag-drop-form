@@ -11,7 +11,7 @@
       [cdkDropListEnterPredicate]="noReturnPredicate"
       (cdkDropListDropped)="drop($event)">
       @for (item of items; track item) {
-        <div class="example-box capitalize text-md font-medium" cdkDrag>
+        <div class="example-box capitalize text-md font-medium bg-amber-50" cdkDrag>
           <div class="flex item-center gap-4">
             <mat-icon>{{icons[item.type]}}</mat-icon>
             {{item.type}}
@@ -35,7 +35,7 @@
         class="example-list"
         (cdkDropListDropped)="drop($event)">
         @for (item of basket; track item.controlName) {
-          <div class="example-box" cdkDrag>
+          <div class="example-box bg-amber-50" cdkDrag>
             <div class="flex-1">
               @if (item.type === inputTypes.INPUT || item.type === inputTypes.TEXTAREA) {
                 <app-input [inputData]="item" [control]="basketForm.get(item.controlName)" [onChangesToggle]="onChangesToggle"></app-input>

@@ -1,7 +1,7 @@
 @if (formGroup) {
 
   <div class="max-w-200 w-full mx-auto">
-    <h1 class="text-4xl font-semibold pb-6">{{ formName }}</h1>
+    <h1 class="text-4xl text-center font-semibold pb-8 capitalize">{{ formName }}</h1>
 
     <form [formGroup]="formGroup">
       @for (item of formFields; track item.formControlName) {
@@ -27,7 +27,7 @@
     <div class="text-center pt-4 flex item-center justify-center gap-4">
       <button mat-stroked-button (click)="back()">Back</button>
       @if (this.commonService.viewFormData().editAccess) {
-        <button mat-flat-button (click)="submit()">Submit</button>
+        <button mat-flat-button (click)="submit()" [disabled]="!formGroup.valid">Submit</button>
       }
     </div>
   </div>

@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { ViewFormComponent } from './pages/view-all-form/view-form.component';
-import { CreateFormComponent } from './pages/create-form/create-form.component';
-import { FillFormComponent } from './pages/fill-form/fill-form.component';
 import { LoginComponent } from './pages/login/login.component';
 import { adminGuard, userGuard } from './core/guards/route-guards/route.guard';
 
@@ -9,17 +6,24 @@ export const routes: Routes = [
   {
     path: 'view-forms',
     canActivate: [userGuard],
-    component: ViewFormComponent
+    loadComponent: () => import('./pages/view-all-form/view-form.component').then(c => c.ViewFormComponent)
   },
   {
     path: 'build-form',
     canActivate: [adminGuard],
-    component: CreateFormComponent
+    loadComponent: () => import('./pages/create-form/create-form.component').then(c => c.CreateFormComponent)
+
   },
   {
     path: 'fill-form',
     canActivate: [userGuard],
-    component: FillFormComponent
+    loadComponent: () => import('./pages/fill-form/fill-form.component').then(c => c.FillFormComponent)
+    
+  },
+  {
+    path: 'submissions',
+    canActivate: [adminGuard],
+    loadComponent: () => import('./pages/view-submissions/view-submissions.component').then(c => c.ViewSubmissionsComponent)
   },
   {
     path: 'login',

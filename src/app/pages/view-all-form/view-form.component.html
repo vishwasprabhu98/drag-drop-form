@@ -1,22 +1,23 @@
 <div class="max-w-200 w-full mx-auto">
-  <h1 class="text-4xl font-semibold pb-6">All Forms</h1>
-  <div class="pb-4 justify-end flex gap-4">
+  <h1 class="text-4xl font-semibold pb-8">All Forms</h1>
+  <div class="pb-4 justify-end flex gap-2">
     @if (userType === userTypes.ADMIN) {
-      <button mat-flat-button (click)="addNewForm()">Add New Form</button>
+      <button mat-flat-button (click)="viewSubmission()">Submissions</button>
+      <button mat-stroked-button (click)="addNewForm()">Add Form</button>
     }
     <button mat-stroked-button (click)="logout()">Logout</button>
   </div>
   @for (form of allForms; track form.uuid) {
-    <div class="card p-4 rounded-sm w-full">
+    <div class="card p-4 rounded-sm w-full bg-green-50">
       <p class="text-2xl font-semibold">
         {{ form.formName | titlecase }}
       </p>
       <p class="py-4">Total Form Fields: {{ form.formObject.length || 0 }}</p>
-      <div class="flex gap-4">
+      <div class="flex gap-2">
         @if (userType === userTypes.USER) {
           <button mat-flat-button (click)="fillForm(form)">Fill Form</button>
         }
-        <button mat-stroked-button (click)="viewForm(form)">View</button>
+        <button mat-stroked-button (click)="viewForm(form)">Preview</button>
         @if (userType === userTypes.ADMIN) {
           <button mat-flat-button (click)="editForm(form)">Edit</button>
           <button mat-stroked-button class="delete" (click)="deleteForm(form)">Delete</button>

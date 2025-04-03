@@ -1,15 +1,20 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { SavedForm } from '../../models/saved-form';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Submission } from '../../models/submission.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaveFormService {
+
   private _snackBar = inject(MatSnackBar);
+  submissions = signal<Submission[]>([])
   
-  constructor() { }
+  constructor() {
+    this.submissions.set(JSON.parse(localStorage.getItem('submissions') || `[]`))
+  }
 
   saveForm(data: SavedForm) {
     const savedForms: SavedForm[] = JSON.parse(localStorage.getItem('savedForms') ?? `[]`)
@@ -60,7 +65,6 @@ export class SaveFormService {
       return
     }
     const savedForms: SavedForm[] = JSON.parse(localStorage.getItem('savedForms') ?? `[]`)
-
     const formIndex = savedForms.findIndex(form => form.uuid === uuid)
     if (formIndex !== -1) {
       savedForms.splice(formIndex, 1)
@@ -72,5 +76,19 @@ export class SaveFormService {
     this._snackBar.open(message, '', {
       duration: 3000,
     });
+  }
+
+  submitForm(data: Submission) {
+    this.submissions.update((prevData: any) => {
+      return [
+        ...prevData,
+        data
+      ]
+    })
+    localStorage.setItem('submissions', JSON.stringify(this.submissions()))
+  }
+
+  getSubmissions() {
+    return this.submissions()
   }
 }
