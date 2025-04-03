@@ -1,14 +1,16 @@
 export interface ValidationOption {
   name: string;
-  value: any;
+  value: string|number|null;
   addValidation: boolean;
   errorMessage: string;
 }
 
 export interface Option {
   label: string;
-  value: any;
+  value: string|number;
 }
+
+type stringNumberBooleanNull = string|number|null|boolean|Date
 
 export interface FormField {
   controlName: string;
@@ -20,7 +22,7 @@ export interface FormField {
   showClear: boolean;
   options: Option[];
   required: boolean;
-  defaultValue: any;
+  defaultValue: stringNumberBooleanNull;
   validationsAvailable: ValidationOption[];
-  checkboxValue: any; // Optional field for checkboxes
+  checkboxValue: stringNumberBooleanNull; // Optional field for checkboxes
 }

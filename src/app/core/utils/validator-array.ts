@@ -10,19 +10,19 @@ export function getValidationArray(formInstance: FormField): ValidatorFn[] {
     if (validator.addValidation) {
       switch (validator.name) {
         case 'minLength':
-          validators.push(Validators.minLength(validator.value));
+          validators.push(Validators.minLength(Number(validator.value)));
           break;
         case 'maxLength':
-          validators.push(Validators.maxLength(validator.value));
+          validators.push(Validators.maxLength(Number(validator.value)));
           break;
         case 'pattern':
           validators.push(Validators.pattern(`${validator.value}`));
           break;
         case 'min':
-          validators.push(Validators.min(validator.value));
+          validators.push(Validators.min(Number(validator.value)));
           break;
         case 'max':
-          validators.push(Validators.max(validator.value));
+          validators.push(Validators.max(Number(validator.value)));
           break;
       }
     }
