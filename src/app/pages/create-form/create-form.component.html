@@ -61,6 +61,9 @@
             </button>
           </div>
         }
+        @if (!basket.length) {
+          <p class="text-center text-neutral-500 pt-4">Drop Input fields here...</p>
+        }
       </div>
     </form>
     <div class="text-center pt-4 flex justify-center gap-4">
