@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { SavedForm } from '../../models/saved-form';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Submission } from '../../models/submission.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,8 @@ import { Submission } from '../../models/submission.model';
 export class SaveFormService {
 
   private _snackBar = inject(MatSnackBar);
+  private httpClient = inject(HttpClient)
+
   submissions = signal<Submission[]>([])
   
   constructor() {
@@ -79,6 +83,21 @@ export class SaveFormService {
   }
 
   submitForm(data: Submission) {
+
+    // API call
+    // This api will not be successful, because there is no such endpoint
+    this.httpClient.post(
+      environment.baseUrl + '/submission',
+      data,
+    ).subscribe({
+      next: response => {
+        // success response
+      },
+      error: error => {
+        console.error(error)
+      }
+    })
+
     this.submissions.update((prevData: any) => {
       return [
         ...prevData,
