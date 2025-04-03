@@ -57,7 +57,7 @@
       <h3 class="text-lg py-2 font-medium">Options</h3>
       <div formArrayName="options">
         @for (option of options.controls; track $index; let i = $index; let last = $last) {
-          <div class="flex gap-4 items-center pb-2" [formGroupName]="i">
+          <div class="flex gap-4 items-start pb-2" [formGroupName]="i" [class.hide-hints]="!$first">
             <mat-form-field class="w-full">
               <mat-label>Dropdown Label Text</mat-label>
               <input matInput formControlName="label" />

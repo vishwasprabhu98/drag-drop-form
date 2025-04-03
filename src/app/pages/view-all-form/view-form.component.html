@@ -1,0 +1,23 @@
+<div class="max-w-200 w-full mx-auto">
+  <h1 class="text-4xl font-semibold pb-6">All Forms</h1>
+  <div class="pb-4 text-end">
+    <button mat-flat-button (click)="addNewForm()">Add New Form</button>
+  </div>
+  @for (form of allForms; track form.uuid) {
+    <div class="card p-4 rounded-sm w-full">
+      <p class="text-2xl font-semibold">
+        {{ form.formName | titlecase }}
+      </p>
+      <p class="py-4">Total Form Fields: {{ form.formObject.length || 0 }}</p>
+      <div class="flex gap-4">
+        <button mat-flat-button (click)="fillForm(form)">Fill Form</button>
+        <button mat-flat-button (click)="editForm(form)">Edit</button>
+        <button mat-stroked-button (click)="viewForm(form)">View</button>
+        <button mat-stroked-button (click)="deleteForm(form)">Delete</button>
+      </div>
+    </div>
+  }
+  @if (!allForms.length) {
+    <p class="text-center p-4 text-lg font-medium card rounded-sm">No Results Found!</p>
+  }
+</div>

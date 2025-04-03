@@ -1,22 +1,20 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import {
   CdkDragDrop,
   DragDropModule,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { InputComponent } from '../form-items/input/input.component';
+import { InputComponent } from '../../shared/components/input/input.component';
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  ValidatorFn,
-  Validators,
 } from '@angular/forms';
-import { DropdownComponent } from '../form-items/dropdown/dropdown.component';
-import { RadioComponent } from '../form-items/radio/radio.component';
-import { CheckboxComponent } from '../form-items/checkbox/checkbox.component';
-import { DatepickerComponent } from '../form-items/datepicker/datepicker.component';
+import { DropdownComponent } from '../../shared/components/dropdown/dropdown.component';
+import { RadioComponent } from '../../shared/components/radio/radio.component';
+import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
+import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
 import { MatDialog } from '@angular/material/dialog';
 import { INPUT_TYPES } from '../../core/constants/input-types';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +25,10 @@ import { INPUT_OBJECTS } from '../../core/constants/form-fields';
 import { FormField } from '../../core/models/input-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SaveFormService } from '../../core/services/save-form/save-form.service';
+import { getValidationArray } from '../../core/utils/validator-array';
+import { Router } from '@angular/router';
+import { CommonService } from '../../core/services/common-service/common.service';
 
 @Component({
   selector: 'app-create-form',
@@ -50,12 +52,37 @@ import { MatInputModule } from '@angular/material/input';
 export class CreateFormComponent {
   items = INPUT_OBJECTS
   inputTypes = INPUT_TYPES
+  icons = {
+    [INPUT_TYPES.INPUT]: 'text_fields',
+    [INPUT_TYPES.DROPDOWN]: 'rule',
+    [INPUT_TYPES.DATE_PICKER]: 'calendar_month',
+    [INPUT_TYPES.CHECKBOX]: 'check_box',
+    [INPUT_TYPES.RADIO]: 'radio_button_checked',
+  }
   dialog = inject(MatDialog)
+  saveFormService = inject(SaveFormService)
+  commonService = inject(CommonService)
+  router = inject(Router)
 
   basket: FormField[] = [];
   basketForm = new FormGroup({});
   formName = ''
+  formUUID: string|null = null
   onChangesToggle = false
+
+  constructor() {
+    if (this.commonService.editFormData()) {
+      this.formUUID = this.commonService.editFormData()?.uuid
+      if (this.formUUID && this.saveFormService.getFormByUUID(this.formUUID)?.formObject) {
+        const form = this.saveFormService.getFormByUUID(this.formUUID)
+        this.basket = form?.formObject ?? []
+        this.formName = form?.formName || ''
+        this.buidForm()
+      }
+    } else {
+      this.formUUID = null
+    }
+  }
 
   drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
@@ -73,7 +100,7 @@ export class CreateFormComponent {
       formInstance.formControlName = randomString
       this.basketForm.addControl(
         formInstance.controlName,
-        new FormControl(formInstance.defaultValue, [...this.getValidationArray(formInstance)])
+        new FormControl(formInstance.defaultValue, [...getValidationArray(formInstance)])
       );
 
       if (
@@ -85,23 +112,16 @@ export class CreateFormComponent {
     }
   }
 
-  getValidationArray(formInstance: FormField): ValidatorFn[] {
-    let validators: ValidatorFn[] = []
-    if (formInstance.required) {
-      validators.push(Validators.required)
-    }
-    formInstance.validationsAvailable.forEach(validator => {
-      if (validator.addValidation) {
-        switch(validator.name) {
-          case 'minLength': validators.push(Validators.minLength(validator.value)); break;
-          case 'maxLength': validators.push(Validators.maxLength(validator.value)); break;
-          case 'pattern': validators.push(Validators.pattern(`${validator.value}`)); break;
-          case 'min': validators.push(Validators.min(validator.value)); break;
-          case 'max': validators.push(Validators.max(validator.value)); break;
-        }
-      }
+  buidForm() {
+    let formObject: Record<string, FormControl> = {}
+
+    this.basket?.forEach(formField => {
+      formObject[formField.controlName] = new FormControl(
+        formField.defaultValue, 
+        [...getValidationArray(formField)])
     })
-    return validators
+
+    this.basketForm = new FormGroup(formObject)
   }
 
   noReturnPredicate() {
@@ -122,7 +142,7 @@ export class CreateFormComponent {
         if (data) {
           Object.assign(item, data)
           this.basketForm.get(item.controlName)?.clearValidators()
-          this.basketForm.get(item.controlName)?.addValidators([...this.getValidationArray(item)])
+          this.basketForm.get(item.controlName)?.addValidators([...getValidationArray(item)])
           this.basketForm.get(item.controlName)?.updateValueAndValidity();
           this.onChangesToggle = !this.onChangesToggle
         }
@@ -130,7 +150,35 @@ export class CreateFormComponent {
     )
   }
 
+  removeControl(index: number) {
+    this.basketForm.removeControl(this.basket[index].controlName)
+    this.basketForm.updateValueAndValidity();
+    this.basket.splice(index, 1)
+  }
+
   submit() {
-    console.log(this.basketForm.value);
+    if (!this.formName) {
+      this.saveFormService.openSnackBar('Please enter Name of the Form!')
+      return
+    }
+    if (!this.basket?.length) {
+      this.saveFormService.openSnackBar('Add atleast One field to the Form')
+      return
+    }
+
+    if (this.formUUID) {
+      this.saveFormService.updateForm({ uuid: this.formUUID, formName: this.formName, formObject: this.basket})
+    } else {
+      this.saveFormService.saveForm({ formName: this.formName, formObject: this.basket})
+    }
+    this.viewAllForms()
+  }
+
+  viewAllForms() {
+    this.router.navigateByUrl('view-forms')
+  }
+
+  ngOnDestroy() {
+    this.commonService.setEditingFormData({ uuid: null })
   }
 }

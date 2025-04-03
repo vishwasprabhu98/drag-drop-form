@@ -97,8 +97,6 @@ export class EditFormDataComponent {
   }
 
   save() {
-    console.log(this.editFieldsData.getRawValue());
-    
     this.dialogRef.close({
       ...this.data.item,
       ...this.editFieldsData.getRawValue()

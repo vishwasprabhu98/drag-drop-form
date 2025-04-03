@@ -11,7 +11,12 @@
       [cdkDropListEnterPredicate]="noReturnPredicate"
       (cdkDropListDropped)="drop($event)">
       @for (item of items; track item) {
-        <div class="example-box capitalize text-md font-medium" cdkDrag>{{item.type}}</div>
+        <div class="example-box capitalize text-md font-medium" cdkDrag>
+          <div class="flex item-center gap-4">
+            <mat-icon>{{icons[item.type]}}</mat-icon>
+            {{item.type}}
+          </div>
+        </div>
       }
     </div>
   </div>
@@ -51,12 +56,16 @@
             <button mat-icon-button type="button" (click)="edit(item)">
               <mat-icon>edit</mat-icon>
             </button>
+            <button mat-icon-button type="button" (click)="removeControl($index)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         }
       </div>
     </form>
-    <div class="text-center pt-4">
-      <button mat-flat-button (click)="submit()">submit</button>
+    <div class="text-center pt-4 flex justify-center gap-4">
+      <button mat-stroked-button (click)="viewAllForms()">Back</button>
+      <button mat-flat-button (click)="submit()">Save</button>
     </div>
   </div>
 </div>

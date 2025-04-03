@@ -1,6 +1,4 @@
 export function getErrorMessage(errors: any, errorMessageObject: Record<string, string>) {
-  console.log(errors);
-  
   if (!errors) {
     return ''
   }
