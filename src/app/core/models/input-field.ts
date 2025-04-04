@@ -24,5 +24,5 @@ export interface FormField {
   required: boolean;
   defaultValue: stringNumberBooleanNull;
   validationsAvailable: ValidationOption[];
-  checkboxValue: stringNumberBooleanNull; // Optional field for checkboxes
+  checkboxValue: string|null; // Optional field for checkboxes
 }

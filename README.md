@@ -8,6 +8,13 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 You can access the deployed application at [drag-drop-form](https://drag-drop-forms.web.app) 🚀
 
+### Admin Credentials
+
+username = `admin` password = `admin`
+
+### User Credentials
+
+username = `user` password = `user`
 # Design Docs
 
 You can find the design documents in the [attached-docs](https://github.com/vishwasprabhu98/drag-drop-form/tree/main/attached-docs) folder with the respective filenames.
